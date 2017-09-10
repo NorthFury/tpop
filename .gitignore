@@ -1,8 +1,8 @@
 .idea/
 /tpop.iml
-/core/tpop-core.iml
-/extension/tpop-extension.iml
-/examples/tpop-examples.iml
+/core/core.iml
+/examples/examples.iml
+/extension/extension.iml
 
 target/
 pom.xml.tag

@@ -1,6 +1,5 @@
 package north.tpop.core.test;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
 import java.time.Duration;
 import java.util.List;
 import north.tpop.core.pageobject.Contact;
@@ -13,18 +12,18 @@ import north.tpop.core.wait.SeleniumWaitExecutor;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 public class S1Test {
 
-    private HtmlUnitDriver driver;
     private S1Page page;
 
     @Before
     public void setup() {
-        driver = new HtmlUnitDriver(BrowserVersion.CHROME);
-        driver.setJavascriptEnabled(true);
+//        String exePath = "<path-to-driver>/chromedriver.exe";
+//        System.setProperty("webdriver.chrome.driver", exePath);
 
+        ChromeDriver driver = new ChromeDriver();
         WaitExecutor waitExecutor = new SeleniumWaitExecutor(driver, Duration.ofSeconds(5));
 
         PageObjectFactory pageObjectFactory = new PageObjectFactory(driver, waitExecutor);
