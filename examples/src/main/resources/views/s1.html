@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>s1</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <div id="contacts">
+            <div class="title">The title</div>
+            <ul>
+                <li>
+                    <span class="name">First</span>
+                    <span class="email">first@first.com</span>
+                </li>
+                <li>
+                    <span class="name">Second</span>
+                    <span class="email">second@second.com</span>
+                </li>
+                <li>
+                    <span class="name">Third</span>
+                    <span class="email">third@third.com</span>
+                </li>
+            </ul>
+        </div>
+        <div id="showButton">Show</div>
+        <div id="hiddenText" style="display: none;">hidden text</div>
+        <script type="text/javascript">
+            document.getElementById('showButton').addEventListener('click', function() {
+                window.setTimeout(function() {
+                    document.getElementById('hiddenText').style.display = '';
+                }, 100);
+            });
+        </script>
+    </body>
+</html>
