@@ -1,11 +1,12 @@
 package north.tpop.core;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import north.tpop.core.annotation.Path;
 import north.tpop.core.annotation.PathType;
-import north.tpop.core.annotation.RepeatableOver;
 import north.tpop.core.annotation.Selectable;
 import north.tpop.core.annotation.SelectorType;
 import north.tpop.core.elementresolver.AbsoluteElementResolver;
@@ -39,7 +40,7 @@ public class PageObjectFactory {
         }
     }
 
-    private void injectMembers(Class<? extends Object> clazz, final Object instance) throws SecurityException, InstantiationException, IllegalAccessException {
+    private void injectMembers(Class<?> clazz, final Object instance) throws SecurityException, InstantiationException, IllegalAccessException {
         Field[] fields = clazz.getDeclaredFields();
         for (final Field field : fields) {
             if (field.isAnnotationPresent(Selectable.class)) {
@@ -50,7 +51,7 @@ public class PageObjectFactory {
             }
         }
 
-        Class<? extends Object> superclass = clazz.getSuperclass();
+        Class<?> superclass = clazz.getSuperclass();
         if (superclass != null) {
             injectMembers(superclass, instance);
         }
@@ -107,14 +108,10 @@ public class PageObjectFactory {
             newElement.pathResolver = pathResolver;
             newElement.pageObjectFactory = this;
 
-            Class<? extends Element> repeatableElementClass;
-            if (field.isAnnotationPresent(RepeatableOver.class)) {
-                RepeatableOver repeatableAnnotation = field.getAnnotation(RepeatableOver.class);
-                repeatableElementClass = repeatableAnnotation.value();
-            } else {
-                repeatableElementClass = Element.class;
-            }
-            newElement.clazz = repeatableElementClass;
+            ParameterizedType parameterizedType = (ParameterizedType) field.getGenericType();
+            Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
+
+            newElement.clazz = (Class<?>) actualTypeArguments[0];
         } else {
             throw new Error("Only Element or RepeatableElement can have the Selectable annotation.");
         }

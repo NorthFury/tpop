@@ -1,6 +1,5 @@
 package north.tpop.core.pageobject;
 
-import north.tpop.core.annotation.RepeatableOver;
 import north.tpop.core.annotation.Selectable;
 import north.tpop.core.annotation.SelectorType;
 import north.tpop.core.Element;
@@ -12,6 +11,5 @@ public class ContactsList extends Element {
     public Element title;
 
     @Selectable(by = SelectorType.tagName, value = "li")
-    @RepeatableOver(Contact.class)
     public RepeatableElement<Contact> contacts;
 }
